@@ -1,0 +1,117 @@
+import sys
+import winsound
+
+
+def sound():
+    winsound.Beep(2000, 100)
+    winsound.Beep(1000, 50)
+    winsound.Beep(2000, 100)
+    winsound.Beep(1000, 50)
+
+
+def board(emptyX):
+    winsound.Beep(1000,100)
+    print(" " * 5 + '|' + " " * 5 + '|' + " " * 5)
+    print(" " * 2 + emptyX[1] + " " * 2 + '|' + " " * 2 + emptyX[2] + " " * 2 + '|' + " " * 2 + emptyX[3] + " " * 2)
+    print(" " * 5 + '|' + " " * 5 + '|' + " " * 5)
+    print("------------------")
+    print(" " * 5 + '|' + " " * 5 + '|' + " " * 5)
+    print(" " * 2 + emptyX[4] + " " * 2 + '|' + " " * 2 + emptyX[5] + " " * 2 + '|' + " " * 2 + emptyX[6] + " " * 2)
+    print(" " * 5 + '|' + " " * 5 + '|' + " " * 5)
+    print("------------------")
+    print(" " * 5 + '|' + " " * 5 + '|' + " " * 5)
+    print(" " * 2 + emptyX[7] + " " * 2 + '|' + " " * 2 + emptyX[8] + " " * 2 + '|' + " " * 2 + emptyX[9] + " " * 2)
+    print(" " * 5 + '|' + " " * 5 + '|' + " " * 5)
+
+def xfunc(x):
+
+    for i in range(1,len(emptyX)):
+        if i == int(x) and emptyX[i] == '0' or int(x) > 9 or int(x) == 0:
+            print("Same position cannot be selected twice | Select numbers from 1 to 9")
+            return 'X'
+        elif i == int(x) and emptyX[i] != '0':
+            emptyX[i] = 'X'
+            board(emptyX)
+            if ''.join(emptyX[1:4]) == 'XXX' or ''.join(emptyX[4:7]) == 'XXX' or ''.join(emptyX[7:]) == 'XXX':
+                print("\n    X WINS !!!")
+                sound()
+                sys.exit()
+            elif ''.join(emptyX[1:8:3]) == 'XXX' or ''.join(emptyX[2:9:3]) == 'XXX' or ''.join(emptyX[3:10:3]) == 'XXX':
+                print("\n    X WINS !!!")
+                sound()
+                sys.exit()
+            elif ''.join(emptyX[1:10:4]) == 'XXX' or ''.join(emptyX[3:8:2]) == 'XXX':
+                print("\n    X WINS !!!")
+                sound()
+                sys.exit()
+
+
+
+def ofunc(o):
+
+    for i in range(1,len(emptyX)):
+        if i == int(o) and emptyX[i] == 'X' or int(o) > 9 or int(o) == 0:
+            print("Same position cannot be selected twice | Select numbers from 1 to 9")
+            return '0'
+        elif i == int(o) and emptyX[i] != 'X':
+            emptyX[i] = '0'
+            board(emptyX)
+            if ''.join(emptyX[1:4]) == '000' or ''.join(emptyX[4:7]) == '000' or ''.join(emptyX[7:]) == '000':
+                print("\n   0 WINS !!!")
+                sound()
+                sys.exit()
+            elif ''.join(emptyX[1:8:3]) == '000' or ''.join(emptyX[2:9:3]) == '000' or ''.join(emptyX[3:10:3]) == '000':
+                print("\n   0 WINS !!!")
+                sound()
+                sys.exit()
+            elif ''.join(emptyX[1:10:4]) == '000' or ''.join(emptyX[3:8:2]) == '000':
+                print("\n   0 WINS !!!")
+                sound()
+                sys.exit()
+
+
+
+
+emptyX = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+board(emptyX)
+xo = input("Choose X or 0: ")
+
+if xo.lower() == 'x':
+
+        while True:
+
+          x_numbers = input("Please X enter number from 1-9: ")
+          status_x = xfunc(x_numbers)
+
+          while  status_x == 'X':
+              x_numbers = input("Please X enter number from 1-9: ")
+              status_x = xfunc(x_numbers)
+
+          zero_numbers = input("Please 0 enter number from 1-9: ")
+          status_zero = ofunc(zero_numbers)
+
+          while status_zero == '0':
+              zero_numbers = input("Please 0 enter number from 1-9: ")
+              status_zero = ofunc(zero_numbers)
+
+
+elif xo == '0':
+
+        while True:
+
+            zero_numbers = input("Please 0 enter number from 1-9: ")
+            status_zero = ofunc(zero_numbers)
+
+            while status_zero == '0':
+                zero_numbers = input("Please 0 enter number from 1-9: ")
+                status_zero = ofunc(zero_numbers)
+
+            x_numbers = input("Please X enter number from 1-9: ")
+            status_x = xfunc(x_numbers)
+
+            while status_x == 'X':
+                x_numbers = input("Please X enter number from 1-9: ")
+                status_x = xfunc(x_numbers)
+
+
+
