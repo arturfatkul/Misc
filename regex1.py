@@ -1,5 +1,5 @@
 import re
 
-phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
-mo = phoneNumRegex.search('My number is 415-453-3232.')
+phoneNumRegex = re.compile(r'\d{3}-\d{3}-\d{3}')
+mo = phoneNumRegex.search('My number is 415-453-323.')
 print('Phone number found: ' + mo.group())
